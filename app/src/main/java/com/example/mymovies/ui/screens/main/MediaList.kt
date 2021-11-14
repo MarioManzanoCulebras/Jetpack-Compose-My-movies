@@ -24,7 +24,7 @@ import com.example.mymovies.ui.screens.common.Thumb
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun MediaList(navController: NavHostController, modifier: Modifier = Modifier) {
+fun MediaList(onMediaClick: (MediaItem) -> Unit, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_xsmall)),
         cells = GridCells.Adaptive(dimensionResource(id = R.dimen.cell_min_width)),
@@ -33,7 +33,7 @@ fun MediaList(navController: NavHostController, modifier: Modifier = Modifier) {
         items(getMedia()) { item ->
             MediaListItem(
                 item,
-                navController,
+                onClick = { onMediaClick(item) },
                 Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall))
             )
         }
@@ -44,11 +44,11 @@ fun MediaList(navController: NavHostController, modifier: Modifier = Modifier) {
 @ExperimentalCoilApi
 @Composable
 fun MediaListItem(mediaItem: MediaItem,
-                  navController: NavHostController,
+                  onClick: () -> Unit,
                   modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .clickable { navController.navigate("detail/${mediaItem.id}") }
+            .clickable (onClick = onClick)
     ) {
         Thumb(mediaItem)
         Title(mediaItem)

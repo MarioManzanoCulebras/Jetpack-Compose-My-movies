@@ -7,14 +7,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
+import com.example.mymovies.model.MediaItem
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(onMediaItem: (MediaItem) -> Unit) {
     Scaffold(
         topBar = { MainAppBar() })
     { padding ->
-        MediaList(navController, modifier = Modifier.padding(padding))
+        MediaList(
+            onMediaClick = onMediaItem,
+            modifier = Modifier.padding(padding)
+        )
     }
 }
