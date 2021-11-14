@@ -1,20 +1,22 @@
 package com.example.mymovies.ui.screens.main
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
+import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.mymovies.R
 import com.example.mymovies.model.MediaItem
@@ -46,12 +48,19 @@ fun MediaList(onMediaClick: (MediaItem) -> Unit, modifier: Modifier = Modifier) 
 fun MediaListItem(mediaItem: MediaItem,
                   onClick: () -> Unit,
                   modifier: Modifier = Modifier) {
-    Column(
+
+    Card(
         modifier = modifier
-            .clickable (onClick = onClick)
+        .clickable (onClick = onClick),
+    elevation = 0.dp,
+    border = BorderStroke(1.dp, Color.LightGray),
+        backgroundColor = MaterialTheme.colors.primary,
+        contentColor = MaterialTheme.colors.secondary
     ) {
-        Thumb(mediaItem)
-        Title(mediaItem)
+        Column{
+            Thumb(mediaItem)
+            Title(mediaItem)
+        }
     }
 }
 
@@ -60,7 +69,7 @@ private fun Title(mediaItem: MediaItem){
     Box(contentAlignment= Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = MaterialTheme.colors.secondary)
+            //.background(color = MaterialTheme.colors.secondary)
             .padding(dimensionResource(id = R.dimen.padding_medium))) {
         Text(text = mediaItem.title,
             style = MaterialTheme.typography.h6)
